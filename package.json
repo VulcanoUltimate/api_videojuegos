@@ -1,0 +1,69 @@
+{
+  "name": "api_videojuegos",
+  "version": "0.0.1",
+  "description": "API de Loopback 4 para una tienda de videojuegos",
+  "keywords": [
+    "loopback-application",
+    "loopback"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": "16 || 18 || 20"
+  },
+  "scripts": {
+    "build": "lb-tsc",
+    "build:watch": "lb-tsc --watch",
+    "lint": "npm run eslint && npm run prettier:check",
+    "lint:fix": "npm run eslint:fix && npm run prettier:fix",
+    "prettier:cli": "lb-prettier \"**/*.ts\" \"**/*.js\"",
+    "prettier:check": "npm run prettier:cli -- -l",
+    "prettier:fix": "npm run prettier:cli -- --write",
+    "eslint": "lb-eslint --report-unused-disable-directives .",
+    "eslint:fix": "npm run eslint -- --fix",
+    "pretest": "npm run rebuild",
+    "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
+    "posttest": "npm run lint",
+    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "docker:build": "docker build -t api_videojuegos .",
+    "docker:run": "docker run -p 3000:3000 -d api_videojuegos",
+    "premigrate": "npm run build",
+    "migrate": "node ./dist/migrate",
+    "preopenapi-spec": "npm run build",
+    "openapi-spec": "node ./dist/openapi-spec",
+    "prestart": "npm run rebuild",
+    "start": "node -r source-map-support/register .",
+    "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
+    "rebuild": "npm run clean && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "author": "Daniel <dacatieb@gmail.com>",
+  "license": "",
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "dependencies": {
+    "@loopback/boot": "^6.1.4",
+    "@loopback/core": "^5.1.4",
+    "@loopback/repository": "^6.1.4",
+    "@loopback/rest": "^13.1.4",
+    "@loopback/rest-explorer": "^6.1.4",
+    "@loopback/service-proxy": "^6.1.4",
+    "tslib": "^2.0.0"
+  },
+  "devDependencies": {
+    "@loopback/build": "^10.1.4",
+    "source-map-support": "^0.5.21",
+    "@loopback/testlab": "^6.1.4",
+    "@types/node": "^16.18.68",
+    "@loopback/eslint-config": "^14.0.5",
+    "eslint": "^8.51.0",
+    "typescript": "~5.2.2"
+  }
+}
